@@ -3,6 +3,10 @@
 This is simple piece of asp.net core middleware that a monitoring service can call to determine if the app is alive.
 You will be able to supply custom metrics to give the caller more detailed information about the service/app.
 
+[![CircleCI](https://circleci.com/gh/schwamster/health-check-middleware.svg?style=shield&circle-token)](https://circleci.com/gh/schwamster/health-check-middleware)
+![#](https://img.shields.io/nuget/v/health-check-middleware.svg)
+
+
 ## Getting started
 
 ### Install the package
