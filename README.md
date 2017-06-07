@@ -45,6 +45,7 @@ HealthCheckOptions
 
 * Message: Message to display on when the healthcheck enpoint is called. Default: "it is alive"
 * Path: Path of the Endpoint (needs to start with "/"). Default: /healthcheck
+* AddVersion (Default false): If the Version of the entry assembly should be part of the healthcheck response. Response will then change from a simple string to a json obj with two properties: message, version 
 
 
 ## Build and Publish

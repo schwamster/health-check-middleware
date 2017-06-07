@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Builder;
+using System.Reflection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace HealthCheck
 {
@@ -29,8 +32,17 @@ namespace HealthCheck
 
                 if(_options.AddVersion)
                 {
-                    
-                    await context.Response.WriteAsync(_options.Message);
+                    var appVersion = Assembly.GetEntryAssembly()
+                        .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+                        .InformationalVersion;
+
+                    var response = new
+                    {
+                        Message = _options.Message,
+                        Version = appVersion
+                    };
+
+                    await context.Response.WriteAsync(JsonConvert.SerializeObject(response, Formatting.Indented, new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() }));
                 }
                 else
                 {
