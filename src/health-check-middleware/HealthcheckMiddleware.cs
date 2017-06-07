@@ -26,7 +26,18 @@ namespace HealthCheck
             if (context.Request.Path.StartsWithSegments(_options.Path))
             {
                 _logger.LogInformation("Healthcheck requested: " + context.Request.Path);
-                await context.Response.WriteAsync(_options.Message);
+
+                if(_options.AddVersion)
+                {
+                    
+                    await context.Response.WriteAsync(_options.Message);
+                }
+                else
+                {
+                    await context.Response.WriteAsync(_options.Message);
+                }
+
+                
             }
             else
             {
@@ -48,10 +59,12 @@ namespace HealthCheck
         public HealthCheckOptions()
         {
             Path = "/healthcheck";
-            Message = "i am alive!";    
+            Message = "i am alive!";
+            AddVersion = false;
         }
 
         public string Path { get; set; }
         public string Message { get; set; }
+        public bool AddVersion { get; set; }
     }
 }
