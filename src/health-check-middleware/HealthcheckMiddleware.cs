@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Builder;
+using System.Reflection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace HealthCheck
 {
@@ -26,7 +29,27 @@ namespace HealthCheck
             if (context.Request.Path.StartsWithSegments(_options.Path))
             {
                 _logger.LogInformation("Healthcheck requested: " + context.Request.Path);
-                await context.Response.WriteAsync(_options.Message);
+
+                if(_options.AddVersion)
+                {
+                    var appVersion = Assembly.GetEntryAssembly()
+                        .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+                        .InformationalVersion;
+
+                    var response = new
+                    {
+                        Message = _options.Message,
+                        Version = appVersion
+                    };
+
+                    await context.Response.WriteAsync(JsonConvert.SerializeObject(response, Formatting.Indented, new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() }));
+                }
+                else
+                {
+                    await context.Response.WriteAsync(_options.Message);
+                }
+
+                
             }
             else
             {
@@ -48,10 +71,12 @@ namespace HealthCheck
         public HealthCheckOptions()
         {
             Path = "/healthcheck";
-            Message = "i am alive!";    
+            Message = "i am alive!";
+            AddVersion = false;
         }
 
         public string Path { get; set; }
         public string Message { get; set; }
+        public bool AddVersion { get; set; }
     }
 }
