@@ -47,7 +47,7 @@ namespace Tests
         [Fact]
         public async void InvokeTest_GivenOptionsThatAddVersion_ReturnsVersionAndMessage()
         {
-            var expected = "{\r\n  \"message\": \"i am alive!\",\r\n  \"version\": \"*.*.*\"\r\n}";
+            var expected = "{\"message\":\"i am alive!\",\"version\":\"*.*.*\"}";
             //Arrange
 
             var builder = new WebHostBuilder()
