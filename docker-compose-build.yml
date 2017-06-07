@@ -1,5 +1,5 @@
 app:
-  image: microsoft/dotnet:1.1.0-sdk-projectjson
+  image: microsoft/aspnetcore:1.1.1
   volumes:
     - .:/sln
   working_dir: /sln
