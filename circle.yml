@@ -10,8 +10,10 @@ dependencies:
 test:
   override:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit
+    - cd test
     - ls
-    - sudo mv TestResults/TestResults.xml $CIRCLE_TEST_REPORTS/junit
+    - cd ..
+    - sudo mv test/TestResults/TestResults.xml $CIRCLE_TEST_REPORTS/junit
     
 deployment:
   hub:
