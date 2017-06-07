@@ -42,7 +42,7 @@ namespace HealthCheck
                         Version = appVersion
                     };
 
-                    await context.Response.WriteAsync(JsonConvert.SerializeObject(response, Formatting.Indented, new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() }));
+                    await context.Response.WriteAsync(JsonConvert.SerializeObject(response, new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() }));
                 }
                 else
                 {
