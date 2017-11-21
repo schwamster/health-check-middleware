@@ -4,8 +4,7 @@ This is simple piece of asp.net core middleware that a monitoring service can ca
 You will be able to supply custom metrics to give the caller more detailed information about the service/app.
 
 [![CircleCI](https://circleci.com/gh/schwamster/health-check-middleware.svg?style=shield&circle-token)](https://circleci.com/gh/schwamster/health-check-middleware)
-![#](https://img.shields.io/nuget/v/health-check-middleware.svg)
-
+[![NPM version][npm-image]][npm-url]
 
 ## Getting started
 
@@ -68,3 +67,8 @@ run (fill in the api key):
         docker run --rm -v ${PWD}/package:/data/package schwamster/nuget-docker push /data/package/*.nupkg <your nuget api key> -Source nuget.org
 
 this will take the package from ./package and push it to nuget.org
+
+
+
+[npm-image]: https://badge.fury.io/js/health-check-middleware.svg
+[npm-url]: https://npmjs.org/package/health-check-middleware
