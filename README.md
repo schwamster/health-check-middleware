@@ -1,10 +1,8 @@
-# health-check-middleware
+# health-check-middleware [![NuGet](https://img.shields.io/nuget/v/health-check-middleware.svg)](https://www.nuget.org/packages/health-check-middleware/) [![CircleCI](https://circleci.com/gh/schwamster/health-check-middleware.svg?style=shield&circle-token)](https://circleci.com/gh/schwamster/health-check-middleware)
 
 This is simple piece of asp.net core middleware that a monitoring service can call to determine if the app is alive.
 You will be able to supply custom metrics to give the caller more detailed information about the service/app.
 
-[![CircleCI](https://circleci.com/gh/schwamster/health-check-middleware.svg?style=shield&circle-token)](https://circleci.com/gh/schwamster/health-check-middleware)
-[![NuGet](https://img.shields.io/nuget/v/health-check-middleware.svg)](https://www.nuget.org/packages/health-check-middleware/)
 
 ## Getting started
 
@@ -44,7 +42,7 @@ HealthCheckOptions
 
 * Message: Message to display on when the healthcheck enpoint is called. Default: "it is alive"
 * Path: Path of the Endpoint (needs to start with "/"). Default: /healthcheck
-* AddVersion (Default false): If the Version of the entry assembly should be part of the healthcheck response. Response will then change from a simple string to a json obj with two properties: message, version 
+* App: Add the name of the application, if nothing is set the Assembly.GetName().Name will be used
 
 
 ## Build and Publish
