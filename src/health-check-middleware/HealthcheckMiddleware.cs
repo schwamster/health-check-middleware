@@ -30,26 +30,27 @@ namespace HealthCheck
             {
                 _logger.LogInformation("Healthcheck requested: " + context.Request.Path);
 
-                if(_options.AddVersion)
-                {
-                    var appVersion = Assembly.GetEntryAssembly()
-                        .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-                        .InformationalVersion;
+                var assembly = Assembly.GetEntryAssembly();
+                var appVersion = assembly
+                    .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+                    .InformationalVersion;
 
-                    var response = new
-                    {
-                        Message = _options.Message,
-                        Version = appVersion
-                    };
-
-                    await context.Response.WriteAsync(JsonConvert.SerializeObject(response, new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() }));
-                }
-                else
+                if(string.IsNullOrEmpty(_options.App))
                 {
-                    await context.Response.WriteAsync(_options.Message);
+                    _options.App = assembly.GetName().Name;
                 }
 
-                
+                var response = new
+                {
+                    Message = _options.Message,
+                    Version = appVersion,
+                    App = _options.App
+                };
+
+                await context.Response.WriteAsync(JsonConvert.SerializeObject(response, new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() }));
+
+
+
             }
             else
             {
@@ -72,11 +73,10 @@ namespace HealthCheck
         {
             Path = "/healthcheck";
             Message = "i am alive!";
-            AddVersion = false;
         }
 
         public string Path { get; set; }
         public string Message { get; set; }
-        public bool AddVersion { get; set; }
+        public string App { get; set; }
     }
 }
