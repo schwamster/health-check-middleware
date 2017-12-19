@@ -34,7 +34,9 @@ Edit your Startup.cs ->
 
 Thats it now you can start your Api and navigate to http://localhost:<randomport>/healthcheck
 
-You should now see the message "Its alive" displayed in the browser.
+You should now see the following message displayed in the browser:
+
+        {"message": Its alive", "version":"x.x.x", "app":"somename"}
 
 ### Options
 
