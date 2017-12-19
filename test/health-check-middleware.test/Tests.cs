@@ -39,21 +39,21 @@ namespace Tests
 
             //Assert
             var result = responseMessage.Content.ReadAsStringAsync().Result;
-
-            result.Should().Be("i am alive!");
+            var expected = "{\"message\":\"i am alive!\",\"version\":\"*.*.*\",\"app\":\"testhost\"}";
+            result.Should().Match(expected);
 
         }
 
         [Fact]
         public async void InvokeTest_GivenOptionsThatAddVersion_ReturnsVersionAndMessage()
         {
-            var expected = "{\"message\":\"i am alive!\",\"version\":\"*.*.*\"}";
+            var expected = "{\"message\":\"i am alive!\",\"version\":\"*.*.*\",\"app\":\"SomeApp\"}";
             //Arrange
 
             var builder = new WebHostBuilder()
                 .Configure(app =>
                 {
-                    app.UseHealthcheckEndpoint(new HealthCheckOptions() { AddVersion = true });
+                    app.UseHealthcheckEndpoint(new HealthCheckOptions() { App = "SomeApp"});
                 });
 
             var server = new TestServer(builder);
