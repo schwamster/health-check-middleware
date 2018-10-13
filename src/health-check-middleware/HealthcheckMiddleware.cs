@@ -30,20 +30,24 @@ namespace HealthCheck
             {
                 _logger.LogInformation("Healthcheck requested: " + context.Request.Path);
 
-                var assembly = Assembly.GetEntryAssembly();
-                var appVersion = assembly
-                    .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-                    .InformationalVersion;
-
-                if(string.IsNullOrEmpty(_options.App))
+                if (string.IsNullOrEmpty(_options.Version))
                 {
+                    var assembly = Assembly.GetExecutingAssembly();
+                    _options.Version = assembly
+                        .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+                        .InformationalVersion;
+                }
+
+                if (string.IsNullOrEmpty(_options.App))
+                {
+                    var assembly = Assembly.GetExecutingAssembly();
                     _options.App = assembly.GetName().Name;
                 }
 
                 var response = new
                 {
                     Message = _options.Message,
-                    Version = appVersion,
+                    Version = _options.Version,
                     App = _options.App
                 };
 
@@ -78,5 +82,7 @@ namespace HealthCheck
         public string Path { get; set; }
         public string Message { get; set; }
         public string App { get; set; }
+
+        public string Version { get; set; }
     }
 }

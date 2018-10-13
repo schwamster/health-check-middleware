@@ -45,6 +45,7 @@ HealthCheckOptions
 * Message: Message to display on when the healthcheck enpoint is called. Default: "it is alive"
 * Path: Path of the Endpoint (needs to start with "/"). Default: /healthcheck
 * App: Add the name of the application, if nothing is set the Assembly.GetName().Name will be used
+* Version: Add the Version of the application, if nothing is set the Assembly.GetName().Name will be used
 
 
 ## Build and Publish
