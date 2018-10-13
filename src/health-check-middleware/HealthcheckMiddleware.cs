@@ -32,7 +32,7 @@ namespace HealthCheck
 
                 if (string.IsNullOrEmpty(_options.Version))
                 {
-                    var assembly = Assembly.GetExecutingAssembly();
+                    var assembly = Assembly.GetEntryAssembly();
                     _options.Version = assembly
                         .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
                         .InformationalVersion;
@@ -40,7 +40,7 @@ namespace HealthCheck
 
                 if (string.IsNullOrEmpty(_options.App))
                 {
-                    var assembly = Assembly.GetExecutingAssembly();
+                    var assembly = Assembly.GetEntryAssembly();
                     _options.App = assembly.GetName().Name;
                 }
 
